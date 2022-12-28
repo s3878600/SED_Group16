@@ -8,7 +8,6 @@
 // Main function start here
 int main()
 {
-
     System *appSys = new System();
     appSys->readFile();
 
@@ -48,16 +47,8 @@ int main()
                 {
                     Member *mem1 = appSys->registerAccount();
                     appSys->users.push_back(mem1);
+                    
 
-                    // Register with admin role
-                    if (mem1->getIsAdmin() == true)
-                        role = "3";
-
-                    // Register with member role
-                    else
-                        role = "2";
-                    mem = appSys->Login(appSys->users);
-                    break;
                 }
                 else if (choice == "N" | choice == "n")
                     break;
