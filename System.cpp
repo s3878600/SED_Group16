@@ -115,19 +115,6 @@ public:
         return false;
     }
 
-     // Read all datas from file
-    void readFile()
-    {
-        string output;
-        ifstream myfile("Data.txt");
-        vector<string> datas;
-        while (getline(myfile, output))
-        {
-            // isAdmin, username, passsword, fullname, phone, location, description
-            datas.push_back(output);
-        }
-    }
-
            // Split the spring by ','
     vector<string> splitString(string s)
     {
