@@ -1,0 +1,6 @@
+Tam3,123,Tam,01234,Saigon,hcm
+Tam,123,Tam,0123456,Saigon,hcm
+Tam2,123,Tam,0123456,Danang,danang
+Thanh,123,Thanh,0123456,Saigon,hcm
+Tamad,456,Kieu,0123456,Saigon,hcm
+Tamregis,123,123,123,Hanoi,hn
