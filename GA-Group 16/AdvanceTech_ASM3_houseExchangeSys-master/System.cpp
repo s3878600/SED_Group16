@@ -433,7 +433,6 @@ public:
 	}
 
     // validate if user enter right date format------------------------------------------------------------------------------
-    // validate if user enter right date format------------------------------------------------------------------------------
     bool isValidDate(string date)
     {
     // Check if the date is in the correct format (YYYY/MM/DD)
