@@ -804,7 +804,7 @@ public:
                     }
                     break;
                 }
-                    // view info
+                // view info
                 case '6':
                 {
                     cout << "\nPersonal Info: " << endl
@@ -819,7 +819,7 @@ public:
                         << endl;
                     break;
                 }
-                    // view House info
+                // view House info
                 case '7':
                 {            
                     if(mem->getHouseForOwn()!=NULL){
