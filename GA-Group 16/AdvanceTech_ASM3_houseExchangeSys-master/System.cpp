@@ -2,13 +2,11 @@
 #include <stdio.h>
 #include <vector>
 #include <fstream>
+#include <iostream>
 
 #include "Member.cpp"
 
 using namespace std;
-
-const int MAX_VALID_YR = 9999;
-const int MIN_VALID_YR = 1800;
 
 // System class
 class System
@@ -435,66 +433,43 @@ public:
 	}
 
     // validate if user enter right date format------------------------------------------------------------------------------
-    bool checkDate(string str)
+    // validate if user enter right date format------------------------------------------------------------------------------
+    bool isValidDate(string date)
     {
-        if (str.size() == 10)
-        {
-            for (int i = 0; i < str.size(); i++)
-            {
-                if ((!isdigit(str[i])) & ((i != 4) & (i != 7)))
-                    return false;
-                if ((str[7] != '/') | (str[4] != '/'))
-                    return false;
-            }
-        }
-        return true;
+    // Check if the date is in the correct format (YYYY/MM/DD)
+    if (date.length() != 10 || date[4] != '/' || date[7] != '/')
+    return false;
+
+    // Extract the year, month, and day from the input string
+    int year = stoi(date.substr(0, 4));
+    int month = stoi(date.substr(5, 2));
+    int day = stoi(date.substr(8, 2));
+
+    // Check if the year is within the valid range (1900-9999)
+    if (year < 1900 || year > 9999)
+        return false;
+
+    // Check if the month is within the valid range (1-12)
+    if (month < 1 || month > 12)
+        return false;
+
+    // Check if the day is within the valid range for the given month
+    if (day < 1 || day > 31)
+        return false;
+    else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+        return false;
+    else if (month == 2 && day > 29)
+        return false;
+    else if (month == 2 && day == 29)
+    {
+        // Check if the year is a leap year
+        if (year % 4 != 0)
+            return false;
+        if (year % 100 == 0 && year % 400 != 0)
+            return false;
     }
 
-    // Check if the year is leap year
-    bool isLeap(int year)
-    {
-        // Return true if year
-        // is a multiple of 4 and
-        // not multiple of 100.
-        // OR year is multiple of 400.
-        return (((year % 4 == 0) &&
-                 (year % 100 != 0)) ||
-                (year % 400 == 0));
-    }
-
-    // Returns true if given
-    // year is valid or not.
-    bool isValidDate(string y, string m, string d)
-    {
-        int day = stoi(d);
-        int month = stoi(m);
-        int year = stoi(y);
-
-        // If year, month and day
-        // are not in given range
-        if (year > MAX_VALID_YR ||
-            year < MIN_VALID_YR)
-            return false;
-        if (month < 1 || month > 12)
-            return false;
-        if (day < 1 || day > 31)
-            return false;
-
-        // Handle February month with leap year
-        if (month == 2)
-        {
-            if (isLeap(year))
-                return (day <= 29);
-            else
-                return (day <= 28);
-        }
-
-        // Months of April, June, Sept and Nov must have number of days less than or equal to 30.
-        if (month == 4 || month == 6 ||
-            month == 9 || month == 11)
-            return (day <= 30);
-
-        return true;
+    return true;
     }
 
     // Check role
@@ -560,6 +535,7 @@ public:
                     count++;
                     cout << count << "." << endl
                          << "Location: " << house->getLocation() << "         | Consuming Points: " << house->getConsumingPoints() << endl
+                         << "Descrption: " << house->getDescription() << endl
                          << "Rating : " << house->getHouseRatingScore() << " | Used Times: " << house->getUsedTimes() << endl;
                 }
             }
@@ -627,10 +603,8 @@ public:
                     {
                         cout << "Enter the start date (YYYY/MM/DD): " << endl;
                         cin >> start;
-                        if (!checkDate(start))
+                        if (!isValidDate(start))
                             cout << "Invalid Input! Renter your date by the given format!" << endl;
-                        else if (!isValidDate(start.substr(0, 4), start.substr(5, 2), start.substr(8, 2)))
-                            cout << "Invalid Date!" << endl;
                         else
                             break;
                     }
@@ -639,10 +613,8 @@ public:
                     {
                         cout << "Enter the end date (YYYY/MM/DD): " << endl;
                         cin >> end;
-                        if (!checkDate(end))
+                        if (!isValidDate(end))
                             cout << "Invalid Input! Renter your date by the given format!" << endl;
-                        else if (!isValidDate(end.substr(0, 4), end.substr(5, 2), end.substr(8, 2)))
-                            cout << "Invalid Date!" << endl;
                         else
                             break;
                     }
@@ -677,9 +649,10 @@ public:
                                 if (house == mem->getHouseForOwn())
                                     continue;
                                 cout << count << "." << endl
-                                    << "Location: " << house->getLocation() << "  Consuming Points: " << house->getConsumingPoints() << endl
-                                    << "Rating : " << house->getHouseRatingScore() << "  Used Times: " << house->getUsedTimes() << endl
-                                    << "Review : " << endl;
+                                     << "Location: " << house->getLocation() << "         | Consuming Points: " << house->getConsumingPoints() << endl
+                                     << "Descrption: " << house->getDescription() << endl
+                                     << "Rating : " << house->getHouseRatingScore() << " | Used Times: " << house->getUsedTimes() << endl
+                                     << "Review : " << endl;
                                 for (string cmt : house->getComments())
                                     cout << " " << cmt << endl;
                                 cout << endl;
@@ -915,8 +888,9 @@ public:
                     for (House *house : sys->getAllHouses())
                     {
                         count++;
-                        cout << count << "." << endl
-                            << "Location: " << house->getLocation() << "         | Consuming Points: " << house->getConsumingPoints() << endl
+                        cout<< count << "." << endl
+                            << "Location: " << house->getLocation()
+                            << "Description: " << house->getDescription() << "         | Consuming Points: " << house->getConsumingPoints() << endl
                             << "Rating : " << house->getHouseRatingScore() << " | Used Times: " << house->getUsedTimes() << endl
                             << endl;
                     }
@@ -945,11 +919,21 @@ public:
         return records;
     }
 
+    //Skip Read whiteSpace
+    void skipWhitespace(ifstream& file) {
+        char c = file.peek();  // Look at the next character in the stream
+        while (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
+            file.get();  // Read the character
+            c = file.peek();  // Look at the next character
+        }
+    }
+
     // Read all datas from file
     void readFile()
     {
         string output;
         ifstream myfile("Data.txt");
+        skipWhitespace(myfile);
         vector<string> datas;
         while (getline(myfile, output))
         {
@@ -969,8 +953,8 @@ public:
             m->setPhone(splitData[3]);
 
             House *h = new House();
-            h->setLocation(splitData[5]);
-            h->setDescription(splitData[6]);
+            h->setLocation(splitData[4]);
+            h->setDescription(splitData[5]);
 
             m->setHouseForOwn(h);
 
