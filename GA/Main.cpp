@@ -18,10 +18,10 @@ void option()
         
         while (true)
         {
-            cout<<"-----WELCOME-----"<< endl
-                << " This is your menu: " << endl
-                << " 1. Guest  ||  2. Login" << endl
-                << " Enter your choice: " << endl;
+            cout<<"-----------------------WELCOME---------------------"<< endl
+                << "This is your menu: " << endl
+                << "1. Guest  ||  2. Login" << endl
+                << "Enter your choice: " << endl;
             cin >> choice;
             if (!appSys->checkChoice(choice, "1", "2")) //Check valid input
             break;
@@ -56,8 +56,8 @@ void option()
         {
             while (true)
             {
-                cout<< " 1.Member login || 2.Admin login" << endl
-                    << " Enter your choice: " << endl;
+                cout<< "1.Member login || 2.Admin login" << endl
+                    << "Enter your choice: " << endl;
                 cin >> choice;
                 if (!appSys->checkChoice(choice, "1", "2")) 
                 break;
