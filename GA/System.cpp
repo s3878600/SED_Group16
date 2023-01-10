@@ -212,7 +212,7 @@ public:
         }
         return phoneNumber;
     }
-
+    
     // Registration for non-member
     Member *newAccount()
     {
@@ -272,7 +272,8 @@ public:
         
         ofstream myfile;
         myfile.open("Data.txt", fstream::app);
-        myfile << data;
+        myfile << data << endl;
+        cout << "You have successfully registered account";
 
         return newMember;
     }
