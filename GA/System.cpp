@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <vector>
 #include <fstream>
+#include <chrono>
+#include <thread>
 
 #include "Member.cpp"
 
@@ -350,20 +352,21 @@ public:
     Member *Login(vector<Member *> users)
     {
         Member *mem;
+        int login_time = 3;
         bool check = false;
         while (!check)
         {
             cout << "\nEnter username: ";
             string username;
             cin >> username;
-
+               
             cout << "Enter password: ";
             string password;
             cin >> password;
             cout << endl;
+                
             for (int i = 0; i < users.size(); i++)
             {
-
                 if ((users[i]->getUsername() == username) && (users[i]->getPassword() == password))
                 {
                     cout << "Login success!!!" <<endl;
@@ -372,11 +375,25 @@ public:
                     break;
                 }
             } 
-        }
-        if (!check)
-        {
-            cout << "Wrong username or wrong password. Please enter again!" << endl;
-            cout << endl;
+
+            if (!check)
+            {
+                login_time--;
+                cout << "\nWrong username or wrong password. Please enter again!" << endl;
+                
+                if (login_time > 0){
+                cout << "You have " << login_time << " attempt left";
+                }
+                
+                cout << endl;
+            }
+
+            if (login_time == 0)
+            {
+                cout << "You have exceeded the maximum number of login attempts. Please wait 60s before trying again." << endl;
+                this_thread::sleep_for(chrono::seconds(60)); // wait 60 seconds before allowing login again
+                login_time = 3; // reset login time after waiting
+            }
         }
         return mem;
     }
