@@ -39,7 +39,7 @@ void option()
 
                 if (choice == "Y" | choice == "y") 
                 {
-                    appSys->newAccount();
+                    appSys->regisNewAccount();
                     cout << "\n" << endl;
                     option(); 
                     break;

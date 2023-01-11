@@ -214,7 +214,7 @@ public:
     }
     
     // Registration for non-member
-    Member *newAccount()
+    Member *regisNewAccount()
     {
         cout << " ***** Register Account *****\n";
         string data = "";
@@ -369,12 +369,13 @@ public:
                     cout << "Login success!!!" <<endl;
                     check = true;
                     mem = users[i];
+                    break;
                 }
             } 
         }
         if (!check)
         {
-            cout << "\nWrong username or wrong password. Please enter again!" << endl;
+            cout << "Wrong username or wrong password. Please enter again!" << endl;
             cout << endl;
         }
         return mem;
