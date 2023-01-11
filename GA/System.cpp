@@ -369,7 +369,7 @@ public:
             {
                 if ((users[i]->getUsername() == username) && (users[i]->getPassword() == password))
                 {
-                    cout << "Login success!!!" <<endl;
+                    cout << "Login success!!! Welcome" << users[i]->getFullname();
                     check = true;
                     mem = users[i];
                     break;
