@@ -218,72 +218,72 @@ public:
     //Regis for non-member
     Member *regisNewAccount()
     {
-        cout << " ***** Register Account *****\n";
-        string data = "";
-        Member *newMember = new Member();
+    cout << " ***** Register Account *****\n";
+    string data = "";
+    Member *newMember = new Member();
 
-        newMember->setIsMember(true);
-        data += "\nMember";
+    newMember->setIsMember(true);
+    data += "\nMember";
 
 
-        string username;
-        while(username=="" ||checkDupUsername(username)) {
-            cout << "Enter username: ";
-            cin >> username;
-        }
-        newMember->setUsername(username);
-        data += "," + username;
+    string username;
+    while(username=="" ||checkDupUsername(username)) {
+        cout << "Enter username: ";
+        cin >> username;
+    }
+    newMember->setUsername(username);
+    data += "," + username;
 
-    
-        //Passwword
-        cout << "Enter password: ";
-        string password;
-        cin >> password;
-        newMember->setPassword(password);
-        data += "," + password;
 
-        //Fullname
-        cout << "Enter fullname: ";
-        string fullname;
-        cin >> fullname;
-        newMember->setFullname(fullname);
-        data += "," + fullname;
+    //Passwword
+    cout << "Enter password: ";
+    string password;
+    cin >> password;
+    newMember->setPassword(password);
+    data += "," + password;
 
-        //Phone
-         //Enter phone number (must be 10 digits and start with 0)
-        string phone = getValidPhoneNumber(); 
-        newMember->setPhone(phone);
-        data += "," + phone;
+    //Fullname
+    cout << "Enter fullname: ";
+    string fullname;
+    cin >> fullname;
+    newMember->setFullname(fullname);
+    data += "," + fullname;
 
-       
-        string enterHouse;
-        while(enterHouse=="" || !isdigit(enterHouse[0]) || enterHouse.size()>1 || enterHouse != "1" && enterHouse!="2"){
-             cout << "Enter house ? Press 1->Yes  2->No : ";
-             cin >> enterHouse;
-        }
-        if (enterHouse == "1")
-        {
-            cout << "Enter Location: ";
-            string location;
-            cin >> location;
-            data += "," + location;
+    //Phone
+    //Enter phone number (must be 10 digits and start with 0)
+    string phone = getValidPhoneNumber(); 
+    newMember->setPhone(phone);
+    data += "," + phone;
 
-            cout << "Enter Description: ";
-            string description;
-            cin >> description;
-            data += "," + description;
-            House *house = new House(location, description);
-            newMember->setHouseInPossession(house);
-        }
-        
-        ofstream myfile;
-        myfile.open("Data.txt", fstream::app);
-        myfile << data;
-        cout << "You have successfully registered account";
 
-        return newMember;
+    string enterHouse;
+    while(enterHouse!="1" && enterHouse!="2"){
+        cout << "Enter house ? Press 1->Yes  2->No : ";
+        cin >> enterHouse;
+    }
+    if (enterHouse == "1")
+    {
+        cout << "Enter Location: ";
+        string location;
+        cin >> location;
+        data += "," + location;
+
+        cout << "Enter Description: ";
+        string description;
+        cin >> description;
+        data += "," + description;
+        House *house = new House(location, description);
+        newMember->setHouseInPossession(house);
     }
 
+    ofstream myfile;
+    myfile.open("Data.txt", fstream::app);
+    myfile << data;
+    cout << "You have successfully registered account";
+
+    return newMember;
+    }
+    
     // Manage the period for renting by the owner of the house
     void houseAvailabilityManage(Member *&mem)
     {
