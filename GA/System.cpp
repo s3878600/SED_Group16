@@ -884,7 +884,7 @@ public:
         // use menu as an admin
         else if (role == "3")
         {
-            // int intChoice = stoi(choice);
+            //int intChoice = stoi(choice);
             string usname = mem->getRenter() != NULL ? mem->getRenter()->getUsername() : "None";
             switch (choice[0])
             {
