@@ -218,78 +218,78 @@ public:
     //Regis for non-member
     Member *regisNewAccount()
     {
-    cout << " ***** Register Account *****\n";
-    string data = "";
-    Member *newMember = new Member();
+        cout << " ***** Register Account *****\n";
+        string data = "";
+        Member *newMember = new Member();
 
-    newMember->setIsMember(true);
-    data += "\nMember";
-
-
-    string username;
-    while(username=="" ||checkDupUsername(username)) {
-        cout << "Enter username: ";
-        cin >> username;
-    }
-    newMember->setUsername(username);
-    data += "," + username;
+        newMember->setIsMember(true);
+        data += "\nMember";
 
 
-    //Passwword
-    cout << "Enter password: ";
-    string password;
-    cin >> password;
-    newMember->setPassword(password);
-    data += "," + password;
-
-    //Fullname
-    cout << "Enter fullname: ";
-    string fullname;
-    getline(cin >> ws, fullname); // use getline() to read the fullname including spaces
-    newMember->setFullname(fullname);
-    data += "," + fullname;
-
-    //Phone
-    //Enter phone number (must be 10 digits and start with 0)
-    string phone = getValidPhoneNumber(); 
-    newMember->setPhone(phone);
-    data += "," + phone;
+        string username;
+        while(username=="" ||checkDupUsername(username)) {
+            cout << "Enter username: ";
+            cin >> username;
+        }
+        newMember->setUsername(username);
+        data += "," + username;
 
 
-    string enterHouse;
-    while(enterHouse!="1" && enterHouse!="2"){
-        cout << "Enter house ? Press 1->Yes  2->No : ";
-        cin >> enterHouse;
-    }
-    if (enterHouse == "1")
-    {
-        cout << "Enter Location: ";
-        string location;
-        while (location != "Hanoi" && location != "Hue" && location != "Saigon")
+        //Passwword
+        cout << "Enter password: ";
+        string password;
+        cin >> password;
+        newMember->setPassword(password);
+        data += "," + password;
+
+        //Fullname
+        cout << "Enter fullname: ";
+        string fullname;
+        getline(cin >> ws, fullname); // use getline() to read the fullname including spaces
+        newMember->setFullname(fullname);
+        data += "," + fullname;
+
+        //Phone
+        //Enter phone number (must be 10 digits and start with 0)
+        string phone = getValidPhoneNumber(); 
+        newMember->setPhone(phone);
+        data += "," + phone;
+
+
+        string enterHouse;
+        while(enterHouse!="1" && enterHouse!="2"){
+            cout << "Enter house ? Press 1->Yes  2->No : ";
+            cin >> enterHouse;
+        }
+        if (enterHouse == "1")
         {
-            cout << "(Hanoi, Hue or Saigon): ";
-            cin >> location;
-            data += "," + location;
-            if (location != "Hanoi" && location != "Hue" && location != "Saigon")
+            cout << "Enter Location: ";
+            string location;
+            while (location != "Hanoi" && location != "Hue" && location != "Saigon")
             {
-                cout << "Invalid location, please enter a valid location." << endl;
+                cout << "(Hanoi, Hue or Saigon): ";
+                cin >> location;
+                data += "," + location;
+                if (location != "Hanoi" && location != "Hue" && location != "Saigon")
+                {
+                    cout << "Invalid location, please enter a valid location." << endl;
+                }
             }
+
+            cout << "Enter Description: ";
+            string description;
+            getline(cin >> ws, description);
+            data += "," + description;
+            House *house = new House(location, description);
+            newMember->setHouseInPossession(house);
         }
 
-        cout << "Enter Description: ";
-        string description;
-        getline(cin >> ws, description);
-        data += "," + description;
-        House *house = new House(location, description);
-        newMember->setHouseInPossession(house);
-    }
+        ofstream myfile;
+        myfile.open("Data.txt", fstream::app);
+        myfile << data;
+        cout << "You have successfully registered account";
 
-    ofstream myfile;
-    myfile.open("Data.txt", fstream::app);
-    myfile << data;
-    cout << "You have successfully registered account";
-
-    return newMember;
+        return newMember;
     }
 
     // Manage the period for renting by the owner of the house
@@ -621,7 +621,7 @@ public:
 
                     while (true) // validate input
                     {
-                        cout << "Enter the city (Hanoi/ Saigon/ Danang): " << endl;
+                        cout << "Enter the city (Hanoi/ Saigon/ Hue): " << endl;
                         cin >> city;
                         if (city == "Hanoi" && (city != "Saigon") && (city != "Hue"))
                             cout << "Invalid City! Enter the city again!" << endl;
