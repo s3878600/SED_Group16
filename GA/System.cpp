@@ -245,7 +245,7 @@ public:
     //Fullname
     cout << "Enter fullname: ";
     string fullname;
-    cin >> fullname;
+    getline(cin >> ws, fullname); // use getline() to read the fullname including spaces
     newMember->setFullname(fullname);
     data += "," + fullname;
 
@@ -283,7 +283,7 @@ public:
 
     return newMember;
     }
-    
+
     // Manage the period for renting by the owner of the house
     void houseAvailabilityManage(Member *&mem)
     {
