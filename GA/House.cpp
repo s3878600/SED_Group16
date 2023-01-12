@@ -14,9 +14,9 @@ private:
 	string location;
 	string descripton;
 	double houseRatingScore;
-	string startDate;
+	string startDate;//Available for Occupy
 	string endDate;
-	string startPeriod;
+	string startPeriod;//Available for renting
 	string endPeriod;
 	double consumingPoints; 
 	double MinReqOccupierRating;

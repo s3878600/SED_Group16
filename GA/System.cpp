@@ -265,12 +265,20 @@ public:
     {
         cout << "Enter Location: ";
         string location;
-        cin >> location;
-        data += "," + location;
+        while (location != "Hanoi" && location != "Hue" && location != "Saigon")
+        {
+            cout << "(Hanoi, Hue or Saigon): ";
+            cin >> location;
+            data += "," + location;
+            if (location != "Hanoi" && location != "Hue" && location != "Saigon")
+            {
+                cout << "Invalid location, please enter a valid location." << endl;
+            }
+        }
 
         cout << "Enter Description: ";
         string description;
-        cin >> description;
+        getline(cin >> ws, description);
         data += "," + description;
         House *house = new House(location, description);
         newMember->setHouseInPossession(house);
@@ -300,13 +308,33 @@ public:
             cin >> choice;
             if (choice == "Y" || choice == "y")
             {
+                cout << "Date format will be YYYY/MM/DD";
+                
                 string newStartDate;
-                cout << "Please enter a start day: " << endl;
-                cin >> newStartDate;
+                while (true) // validate input
+                {
+                    cout << "Please enter a start day: " << endl;
+                    cin >> newStartDate;
+                    if (!isValidDate(newStartDate))
+                        cout << "Invalid Input! Renter your date by the given format!" << endl;
+                    else if (!isValidDate(newStartDate))
+                        cout << "Invalid Date!" << endl;
+                    else
+                        break;
+                }
 
                 string newEndDate;
-                cout << "Please enter an end day: " << endl;
-                cin >> newEndDate;
+                while (true) // validate input
+                {
+                    cout << "Please enter a start day: " << endl;
+                    cin >> newEndDate;
+                    if (!isValidDate(newEndDate))
+                        cout << "Invalid Input! Renter your date by the given format!" << endl;
+                    else if (!isValidDate(newEndDate))
+                        cout << "Invalid Date!" << endl;
+                    else
+                        break;
+                }
 
                 bool checkSuccess = mem->setAvailablePeriod(newStartDate, newEndDate);
                 if (checkSuccess)
@@ -405,40 +433,40 @@ public:
     // validate if user enter right date format------------------------------------------------------------------------------
     bool isValidDate(string date)
     {
-    // Check if the date is in the correct format (YYYY/MM/DD)
-    if (date.length() != 10 || date[4] != '/' || date[7] != '/')
-    return false;
-
-    // Extract the year, month, and day from the input string
-    int year = stoi(date.substr(0, 4));
-    int month = stoi(date.substr(5, 2));
-    int day = stoi(date.substr(8, 2));
-
-    // Check if the year is within the valid range (1900-9999)
-    if (year < 1900 || year > 9999)
+        // Check if the date is in the correct format (YYYY/MM/DD)
+        if (date.length() != 10 || date[4] != '/' || date[7] != '/')
         return false;
 
-    // Check if the month is within the valid range (1-12)
-    if (month < 1 || month > 12)
-        return false;
+        // Extract the year, month, and day from the input string
+        int year = stoi(date.substr(0, 4));
+        int month = stoi(date.substr(5, 2));
+        int day = stoi(date.substr(8, 2));
 
-    // Check if the day is within the valid range for the given month
-    if (day < 1 || day > 31)
-        return false;
-    else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
-        return false;
-    else if (month == 2 && day > 29)
-        return false;
-    else if (month == 2 && day == 29)
-    {
-        // Check if the year is a leap year
-        if (year % 4 != 0)
+        // Check if the year is within the valid range (1900-9999)
+        if (year < 1900 || year > 9999)
             return false;
-        if (year % 100 == 0 && year % 400 != 0)
-            return false;
-    }
 
-    return true;
+        // Check if the month is within the valid range (1-12)
+        if (month < 1 || month > 12)
+            return false;
+
+        // Check if the day is within the valid range for the given month
+        if (day < 1 || day > 31)
+            return false;
+        else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+            return false;
+        else if (month == 2 && day > 29)
+            return false;
+        else if (month == 2 && day == 29)
+        {
+            // Check if the year is a leap year
+            if (year % 4 != 0)
+                return false;
+            if (year % 100 == 0 && year % 400 != 0)
+                return false;
+        }
+
+        return true;
     }
 
     void confirmRole(string role)
@@ -580,16 +608,17 @@ public:
                     }
 
                     while (true) // validate input
-                {
-                    cout << "Enter the end date (YYYY/MM/DD): " << endl;
-                    cin >> end;
-                    if (!isValidDate(end))
-                        cout << "Invalid Input! Renter your date by the given format!" << endl;
-                    else if (!isValidDate(end))
-                        cout << "Invalid Date!" << endl;
-                    else
-                        break;
-                }
+                    {
+                        cout << "Enter the end date (YYYY/MM/DD): " << endl;
+                        cin >> end;
+                        if (!isValidDate(end))
+                            cout << "Invalid Input! Renter your date by the given format!" << endl;
+                        else if (!isValidDate(end))
+                            cout << "Invalid Date!" << endl;
+                        else
+                            break;
+                    }
+
                     while (true) // validate input
                     {
                         cout << "Enter the city (Hanoi/ Saigon/ Danang): " << endl;
