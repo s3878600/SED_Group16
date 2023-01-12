@@ -215,12 +215,16 @@ public:
         return phoneNumber;
     }
     
-    // Registration for non-member
+    //Regis for non-member
     Member *regisNewAccount()
     {
         cout << " ***** Register Account *****\n";
         string data = "";
         Member *newMember = new Member();
+
+        newMember->setIsMember(true);
+        data += "\nMember";
+
 
         string username;
         while(username=="" ||checkDupUsername(username)) {
@@ -228,7 +232,7 @@ public:
             cin >> username;
         }
         newMember->setUsername(username);
-        data += username;
+        data += "," + username;
 
     
         //Passwword
@@ -274,7 +278,7 @@ public:
         
         ofstream myfile;
         myfile.open("Data.txt", fstream::app);
-        myfile << data << endl;
+        myfile << data;
         cout << "You have successfully registered account";
 
         return newMember;
@@ -397,64 +401,6 @@ public:
         }
         return mem;
     }
-
-    //Admin Login function---------------------------------------------------------------------------------------------
-	bool ReadAdminFile(string ad_username, string ad_password) {
-    ifstream file("AdminData.txt");
-
-    // Check if the file exists
-    if (!file.good()) {
-        cout << "Error: Unable to open file" << endl;
-        exit(1);  // Terminate the program
-    }
-
-    string line;
-    while (getline(file, line)) {  // Read a line of text from the file
-        // Find the positions of the commas
-        size_t pos1 = line.find(',');
-        size_t pos2 = line.find(',', pos1 + 1);
-        if (pos1 == string::npos || pos2 == string::npos) {
-            cout << "Error: Invalid login data format" << endl;
-            return false;
-        }
-
-        // Extract the username and password from the line of text
-        string username_from_file = line.substr(0, pos1);
-        string password_from_file = line.substr(pos1 + 1, pos2 - pos1 - 1);
-
-        // Compare the login information provided by the user to the data read from the file
-        if (ad_username == username_from_file && ad_password == password_from_file) {
-            return true;
-        }
-    }
-
-    	return false;
-	}
-
-	void AdminLogin(){
-		string ad_username, ad_password;
-		bool check = false;
-
-		while (true)
-		{
-			cout << "Enter your username: ";
-			cin >> ad_username;
-
-			cout << "Enter your password: ";
-			cin >> ad_password;
-            cout << endl;
-			
-			if (ReadAdminFile(ad_username, ad_password)) {
-				cout << "Login successful!" << endl;
-				break;
-			} else {
-				cout << "Invalid login information." << "\n";
-				cout << "Please try again!" << "\n";
-				cout << endl;
-
-			}
-		}	
-	}
 
     // validate if user enter right date format------------------------------------------------------------------------------
     bool isValidDate(string date)
@@ -955,38 +901,37 @@ public:
     }
 
     // Read all datas from file
-    void readFile()
-    {
+    void readFile() {
         string output;
         ifstream myfile("Data.txt");
-        skipWhitespace(myfile);
+        getline(myfile, output); // skip first line
         vector<string> datas;
-        while (getline(myfile, output))
-        {
+        while (getline(myfile, output)) {
             // isAdmin, username, passsword, fullname, phone, location, description
             datas.push_back(output);
         }
-
         // create user and house to add to system
-        for (string data : datas)
-        {
+        for (string data : datas) {
             vector<string> splitData = splitString(data);
 
             Member *m = new Member();
-            m->setUsername(splitData[0]);
-            m->setPassword(splitData[1]);
-            m->setFullname(splitData[2]);
-            m->setPhone(splitData[3]);
+            bool isMember = splitData[0] == "true" ? true : false;
+            m->setIsMember(isMember);
+            m->setUsername(splitData[1]);
+            m->setPassword(splitData[2]);
+            m->setFullname(splitData[3]);
+            m->setPhone(splitData[4]);
 
             House *h = new House();
-            h->setLocation(splitData[4]);
-            h->setDescription(splitData[5]);
+            h->setLocation(splitData[5]);
+            h->setDescription(splitData[6]);
             m->setHouseInPossession(h);
 
             this->users.push_back(m);
         }
+
         myfile.close();
-    }
+    } 
 };
 
 

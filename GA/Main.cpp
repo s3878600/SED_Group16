@@ -70,7 +70,7 @@ void option()
             }
             else if (choice == "2"){
                 role = "3";
-                appSys->AdminLogin();
+                mem = appSys->Login(appSys->users);
             }   
         }
 

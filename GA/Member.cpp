@@ -18,7 +18,7 @@ private:
 	House *houseInPossession;
 	House *houseForRent;
 	long occupyDuration;
-	bool functionAdmin;
+	bool isMember;
 	Member *renter;
 
 public:
@@ -135,14 +135,15 @@ public:
 		this->occupyDuration++;
 	}
 
-	bool getFunctionAdmin()
+
+	bool getIsMember()
 	{
-		return this->functionAdmin;
+		return this->isMember;
 	}
 
-	void setFunctionAdmin(bool functionAdmin)
+	void setIsMember(bool isMember)
 	{
-		this->functionAdmin = functionAdmin;
+		this->isMember = isMember;
 	}
 
 	void setRenter(Member *renter)
