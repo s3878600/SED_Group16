@@ -135,7 +135,6 @@ public:
 		this->occupyDuration++;
 	}
 
-
 	bool getIsMember()
 	{
 		return this->isMember;

@@ -9,9 +9,6 @@
 
 using namespace std;
 
-
-
-
 class System
 {
 public:
@@ -433,40 +430,40 @@ public:
     // validate if user enter right date format------------------------------------------------------------------------------
     bool isValidDate(string date)
     {
-        // Check if the date is in the correct format (YYYY/MM/DD)
-        if (date.length() != 10 || date[4] != '/' || date[7] != '/')
+    // Check if the date is in the correct format (YYYY/MM/DD)
+    if (date.length() != 10 || date[4] != '/' || date[7] != '/')
+    return false;
+
+    // Extract the year, month, and day from the input string
+    int year = stoi(date.substr(0, 4));
+    int month = stoi(date.substr(5, 2));
+    int day = stoi(date.substr(8, 2));
+
+    // Check if the year is within the valid range (1900-9999)
+    if (year < 1900 || year > 9999)
         return false;
 
-        // Extract the year, month, and day from the input string
-        int year = stoi(date.substr(0, 4));
-        int month = stoi(date.substr(5, 2));
-        int day = stoi(date.substr(8, 2));
+    // Check if the month is within the valid range (1-12)
+    if (month < 1 || month > 12)
+        return false;
 
-        // Check if the year is within the valid range (1900-9999)
-        if (year < 1900 || year > 9999)
+    // Check if the day is within the valid range for the given month
+    if (day < 1 || day > 31)
+        return false;
+    else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+        return false;
+    else if (month == 2 && day > 29)
+        return false;
+    else if (month == 2 && day == 29)
+    {
+        // Check if the year is a leap year
+        if (year % 4 != 0)
             return false;
+        if (year % 100 == 0 && year % 400 != 0)
+            return false;
+    }
 
-        // Check if the month is within the valid range (1-12)
-        if (month < 1 || month > 12)
-            return false;
-
-        // Check if the day is within the valid range for the given month
-        if (day < 1 || day > 31)
-            return false;
-        else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
-            return false;
-        else if (month == 2 && day > 29)
-            return false;
-        else if (month == 2 && day == 29)
-        {
-            // Check if the year is a leap year
-            if (year % 4 != 0)
-                return false;
-            if (year % 100 == 0 && year % 400 != 0)
-                return false;
-        }
-
-        return true;
+    return true;
     }
 
     void confirmRole(string role)
@@ -531,7 +528,7 @@ public:
                     count++;
                     cout << count << "." << endl
                          << "Location: " << house->getLocation() << "         | Consuming Points: " << house->getConsumingPoints() << endl
-                         << "Description: " << house->getDescription() << endl
+                         << "Descrption: " << house->getDescription() << endl
                          << "Rating : " << house->getHouseRatingScore() << " | Used Times: " << house->getSpendTimes() << endl;
                 }
             }
@@ -608,22 +605,21 @@ public:
                     }
 
                     while (true) // validate input
-                    {
-                        cout << "Enter the end date (YYYY/MM/DD): " << endl;
-                        cin >> end;
-                        if (!isValidDate(end))
-                            cout << "Invalid Input! Renter your date by the given format!" << endl;
-                        else if (!isValidDate(end))
-                            cout << "Invalid Date!" << endl;
-                        else
-                            break;
-                    }
-
+                {
+                    cout << "Enter the end date (YYYY/MM/DD): " << endl;
+                    cin >> end;
+                    if (!isValidDate(end))
+                        cout << "Invalid Input! Renter your date by the given format!" << endl;
+                    else if (!isValidDate(end))
+                        cout << "Invalid Date!" << endl;
+                    else
+                        break;
+                }
                     while (true) // validate input
                     {
                         cout << "Enter the city (Hanoi/ Saigon/ Hue): " << endl;
                         cin >> city;
-                        if (city != "Hanoi" && (city != "Saigon") && (city != "Hue"))
+                        if (city == "Hanoi" && (city != "Saigon") && (city != "Hue"))
                             cout << "Invalid City! Enter the city again!" << endl;
                         else
                             break;
@@ -651,7 +647,7 @@ public:
                                     continue;
                                 cout << count << "." << endl
                                      << "Location: " << house->getLocation() << "         | Consuming Points: " << house->getConsumingPoints() << endl
-                                     << "Description: " << house->getDescription() << endl
+                                     << "Descrption: " << house->getDescription() << endl
                                      << "Rating : " << house->getHouseRatingScore() << " | Used Times: " << house->getSpendTimes() << endl
                                      << "Review : " << endl;
                                 for (string cmt : house->getComments())
@@ -833,7 +829,7 @@ public:
                         << "Occupying Start Date : " << mem->getHouseInPossession()->getStartDate() << endl
                         << "Occupying End Date : " << mem->getHouseInPossession()->getEndDate() << endl
                         << "Available for renting Start : " << mem->getHouseInPossession()->getStartPeriod() << endl
-                        << "Available for renting End : " << mem->getHouseInPossession()->getStartPeriod() << endl
+                        << "Available for renting End : " << mem->getHouseInPossession()->getEndPeriod() << endl
                         << endl;
                     }
                     else cout<<"Currently you register no house !"<<endl;
@@ -960,7 +956,7 @@ public:
         }
 
         myfile.close();
-    } 
+    }   
 };
 
 

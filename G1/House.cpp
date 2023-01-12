@@ -13,10 +13,10 @@ class House
 private:
 	string location;
 	string descripton;
-	double houseRatingScore;
-	string startDate;//Available for Occupy
+	double houseRatingScrore;
+	string startDate;
 	string endDate;
-	string startPeriod;//Available for renting
+	string startPeriod;
 	string endPeriod;
 	double consumingPoints; 
 	double MinReqOccupierRating;
@@ -29,7 +29,7 @@ private:
 public:
 	House()
 	{
-		this->houseRatingScore = 0;
+		this->houseRatingScrore = 0;
 		this->consumingPoints = 0;
 		this->spendTimes = 0;
 		this->MinReqOccupierRating = 0;
@@ -41,7 +41,7 @@ public:
 		this->descripton = descripton;
 		this->spendTimes = 0;
 		this->MinReqOccupierRating = 0;
-		this->houseRatingScore = 0;
+		this->houseRatingScrore = 0;
 	}
 
 	string getLocation()
@@ -66,12 +66,12 @@ public:
 
 	double getHouseRatingScore()
 	{
-		return this->houseRatingScore;
+		return this->houseRatingScrore;
 	}
 
 	void setHouseRatingScore(double houseRatingScore)
 	{
-		this->houseRatingScore = houseRatingScore;
+		this->houseRatingScrore = houseRatingScore;
 	}
 
 	string getStartDate()
