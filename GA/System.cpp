@@ -557,7 +557,7 @@ public:
                     count++;
                     cout << count << "." << endl
                          << "Location: " << house->getLocation() << "         | Consuming Points: " << house->getConsumingPoints() << endl
-                         << "Descrption: " << house->getDescription() << endl
+                         << "Description: " << house->getDescription() << endl
                          << "Rating : " << house->getHouseRatingScore() << " | Used Times: " << house->getSpendTimes() << endl;
                 }
             }
@@ -676,7 +676,7 @@ public:
                                     continue;
                                 cout << count << "." << endl
                                      << "Location: " << house->getLocation() << "         | Consuming Points: " << house->getConsumingPoints() << endl
-                                     << "Descrption: " << house->getDescription() << endl
+                                     << "Description: " << house->getDescription() << endl
                                      << "Rating : " << house->getHouseRatingScore() << " | Used Times: " << house->getSpendTimes() << endl
                                      << "Review : " << endl;
                                 for (string cmt : house->getComments())
