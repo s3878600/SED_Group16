@@ -623,7 +623,7 @@ public:
                     {
                         cout << "Enter the city (Hanoi/ Saigon/ Hue): " << endl;
                         cin >> city;
-                        if (city == "Hanoi" && (city != "Saigon") && (city != "Hue"))
+                        if (city != "Hanoi" && (city != "Saigon") && (city != "Hue"))
                             cout << "Invalid City! Enter the city again!" << endl;
                         else
                             break;
