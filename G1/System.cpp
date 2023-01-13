@@ -555,6 +555,7 @@ public:
                             cout << "Enter Description: ";
                             string description;
                             cin >> description;
+                            
                             House *house = new House(location, description);
                             mem->setHouseInPossession(house);
                             cout<<"Successfully registered a house !"<<endl;
