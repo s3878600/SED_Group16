@@ -28,7 +28,7 @@ public:
 		this->occupierRatingScore = 0;
 		this->renter = NULL;
 		this->creditPoints = 500;
-		this->houseInPossession == NULL;
+		this->houseForRent == NULL;
 	}
 
 	Member(string username, string password, string fullname, string phone)
@@ -40,7 +40,7 @@ public:
 		this->renter = NULL;
 		this->occupyDuration = 0;
 		this->creditPoints = 500;
-		this->houseInPossession == NULL;
+		this->houseForRent == NULL;
 		this->occupierRatingScore = 0;
 	}
 
