@@ -940,7 +940,7 @@ public:
             vector<string> splitData = splitString(data);
 
             Member *m = new Member();
-            bool isMember = splitData[0] == "true" ? true : false;
+            bool isMember = splitData[0] == "Member" ? true : false;
             m->setIsMember(isMember);
             m->setUsername(splitData[1]);
             m->setPassword(splitData[2]);
